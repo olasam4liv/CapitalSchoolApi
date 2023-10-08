@@ -6,5 +6,6 @@ namespace CapitalSchoolApi.Interfaces
     public interface IProgramService
     {
         Task<ServiceResponse<dynamic>> Register(ProgramDto payload);
+        Task<ServiceResponse<dynamic>> UpdateProgram(UpdateProgramDto payload);
     }
 }

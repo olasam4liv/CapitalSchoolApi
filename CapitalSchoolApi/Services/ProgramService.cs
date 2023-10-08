@@ -32,6 +32,7 @@ namespace CapitalSchoolApi.Services
             var serviceResponse = new ServiceResponse<dynamic>();
             try
             {
+                //Check if data exist
                 var query = await _container.GetItemLinqQueryable<ProgramModel>()
                                        .Where(u => u.Title == payload.Title)
                                        .ToFeedIterator().ReadNextAsync();
@@ -94,6 +95,75 @@ namespace CapitalSchoolApi.Services
             }
 
            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<dynamic>> UpdateProgram(UpdateProgramDto payload)
+        {
+            var serviceResponse = new ServiceResponse<dynamic>();
+            try
+            {
+                //Check if data exist
+                var query = await _container.GetItemLinqQueryable<ProgramModel>()
+                                       .Where(u => u.Id == payload.Id)
+                                       .ToFeedIterator().ReadNextAsync();
+                var response = query.FirstOrDefault();
+
+
+                if (response == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Success = true;
+                    serviceResponse.Message = "Record not found";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.NotFound;
+                    return serviceResponse;
+                }
+
+
+                //Update Program
+
+                response.Title = payload.Title;
+                response.ApplicationClose = payload.ApplicationClose;
+                response.ApplicationCriteria = payload.ApplicationCriteria;
+                response.ApplicationOpen = payload.ApplicationOpen;
+                response.Benefit = payload.Benefit;
+                response.Description = payload.Description;
+                response.Duration = payload.Duration;
+                response.KeySkills = payload.KeySkills;
+                response.Location = payload.Location;
+                response.MaxNumofApplication = payload.MaxNumofApplication;
+                response.MinQualification = payload.MinQualification;
+                response.ProgramType = payload.ProgramType;
+                response.StartDate = payload.StartDate;
+                response.Summary = payload.Summary;
+                response.UpdatedAt = DateTime.Now;
+               
+
+                var res = await _container.ReplaceItemAsync<ProgramModel>(response, payload.Id);
+
+                if (res.StatusCode == HttpStatusCode.OK)
+                {
+                    serviceResponse.Data = payload;
+                    serviceResponse.Success = true;
+                    serviceResponse.Message = "Record Succesfully Updated";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.OK;
+
+                }
+                else
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Record Not Updated";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                }
+            }
+            catch (CosmosException ex)
+            {
+
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Internal Server Error";
+                serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
+
+            return serviceResponse;
         }
     }
 }

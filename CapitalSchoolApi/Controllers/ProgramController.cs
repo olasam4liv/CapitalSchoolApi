@@ -34,12 +34,8 @@ namespace CapitalSchoolApi.Controllers
             
             if (serviceResponse.StatusCode == (int)HttpStatusCode.BadRequest)
             {
-                return StatusCode(statusCode: (int)HttpStatusCode.BadRequest, serviceResponse);
-            }
-            if (serviceResponse.StatusCode == (int)HttpStatusCode.PaymentRequired)
-            {
-                return StatusCode(statusCode: (int)HttpStatusCode.PaymentRequired, serviceResponse);
-            }
+                return StatusCode(statusCode: (int)HttpStatusCode.BadRequest, serviceResponse);            }
+            
             if (serviceResponse.StatusCode == (int)HttpStatusCode.InternalServerError)
             {
                 return StatusCode(statusCode: (int)HttpStatusCode.InternalServerError, serviceResponse);
@@ -64,18 +60,41 @@ namespace CapitalSchoolApi.Controllers
             {
                 return StatusCode(statusCode: (int)HttpStatusCode.BadRequest, serviceResponse);
             }
-            if (serviceResponse.StatusCode == (int)HttpStatusCode.PaymentRequired)
-            {
-                return StatusCode(statusCode: (int)HttpStatusCode.PaymentRequired, serviceResponse);
-            }
+           
             if (serviceResponse.StatusCode == (int)HttpStatusCode.InternalServerError)
             {
                 return StatusCode(statusCode: (int)HttpStatusCode.InternalServerError, serviceResponse);
             }
             return StatusCode(statusCode: (int)HttpStatusCode.OK, serviceResponse);
 
+        }
+
+        [Route("GetProgramById/{programId}")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetProgramById([Required] string programId)
+        {
+            var serviceResponse = new ServiceResponse<dynamic>();
+
+            serviceResponse = await _programService.GetProgramById(programId);
+
+            if (serviceResponse.StatusCode == (int)HttpStatusCode.BadRequest)
+            {
+                return StatusCode(statusCode: (int)HttpStatusCode.BadRequest, serviceResponse);
+            }
+
+            if (serviceResponse.StatusCode == (int)HttpStatusCode.InternalServerError)
+            {
+                return StatusCode(statusCode: (int)HttpStatusCode.InternalServerError, serviceResponse);
+            }
+            return StatusCode(statusCode: (int)HttpStatusCode.OK, serviceResponse);
 
         }
+
+
 
     }
 }

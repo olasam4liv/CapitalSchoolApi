@@ -27,6 +27,44 @@ namespace CapitalSchoolApi.Services
             _container = database.GetContainer(containerName);
         }
 
+        public async Task<ServiceResponse<dynamic>> GetProgramById(string programId)
+        {
+            var serviceResponse = new ServiceResponse<dynamic>();
+            try
+            {
+                //Check if data exist
+                var query = await _container.GetItemLinqQueryable<ProgramModel>()
+                                       .Where(u => u.Id == programId.Trim())
+                                       .ToFeedIterator().ReadNextAsync();
+                var response = query.FirstOrDefault();
+
+
+                if (response == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Success = true;
+                    serviceResponse.Message = "Record not found";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.NotFound;
+                    return serviceResponse;
+                }                 
+  
+                    serviceResponse.Data = response;
+                    serviceResponse.Success = true;
+                    serviceResponse.Message = "Record Succesfully fetched";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.OK;
+                
+            }
+            catch (CosmosException ex)
+            {
+
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Internal Server Error";
+                serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
+
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<dynamic>> Register(ProgramDto payload)
         {
             var serviceResponse = new ServiceResponse<dynamic>();

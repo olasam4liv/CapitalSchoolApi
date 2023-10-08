@@ -51,3 +51,4 @@ C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\refint\CapitalSchoolA
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\CapitalSchoolApi.pdb
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\CapitalSchoolApi.genruntimeconfig.cache
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\ref\CapitalSchoolApi.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\appsettings.json

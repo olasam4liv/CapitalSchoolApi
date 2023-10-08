@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.Cosmos;
+﻿using CapitalSchoolApi.Interfaces;
+using CapitalSchoolApi.Services;
+using Microsoft.Azure.Cosmos;
 
 namespace CapitalSchoolApi
 {
@@ -16,6 +18,8 @@ namespace CapitalSchoolApi
 
            
             services.AddControllers();
+
+            services.AddScoped<IProgramService, ProgramService>();
 
             services.AddSingleton((provider) =>
             {

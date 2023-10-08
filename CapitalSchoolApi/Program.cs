@@ -1,2 +1,17 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using CapitalSchoolApi;
+
+public class Program
+{
+    static void Main()
+    {
+        CreateHostBuilder().Build().Run();
+    }
+    public static IHostBuilder CreateHostBuilder()
+    {
+        return Host.CreateDefaultBuilder()
+                  .ConfigureWebHostDefaults(webHost =>
+                  {
+                      webHost.UseStartup<Startup>();
+                  });
+    }
+}

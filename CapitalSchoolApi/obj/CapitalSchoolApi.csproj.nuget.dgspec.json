@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj": {}
+    "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj": {}
   },
   "projects": {
-    "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj": {
+    "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj",
+        "projectUniqueName": "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj",
         "projectName": "CapitalSchoolApi",
-        "projectPath": "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj",
+        "projectPath": "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\CapitalSchoolApi\\obj\\",
+        "outputPath": "C:\\Apps\\CapitalSchoolApi\\CapitalSchoolApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,16 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Cosmos": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -56,6 +66,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

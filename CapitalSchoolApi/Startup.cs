@@ -22,6 +22,7 @@ namespace CapitalSchoolApi
 
             services.AddScoped<IProgramService, ProgramService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IWorkflowService, WorkflowService>();
 
             services.AddSingleton((provider) =>
             {

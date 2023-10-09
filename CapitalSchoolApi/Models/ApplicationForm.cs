@@ -21,6 +21,7 @@ namespace CapitalSchoolApi.Models
         public List<Education>? Educations { get; set; }
         public List<Experience>? Experiences { get; set; }
         public List<AdditionalQuestion>? additionalQuestions { get; set; }
+        public List<Workflow>? Workflows { get; set; }
     }
     public class QuestionModel
     {

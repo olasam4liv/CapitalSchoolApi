@@ -93,5 +93,6 @@ namespace CapitalSchoolApi.Controllers
             }
             return StatusCode(statusCode: (int)HttpStatusCode.OK, serviceResponse);
         }
+       
     }
 }

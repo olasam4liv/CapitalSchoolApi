@@ -1,7 +1,8 @@
 ﻿using CapitalSchoolApi.Interfaces;
 using CapitalSchoolApi.Services;
 using Microsoft.Azure.Cosmos;
-
+using Serilog;
+using Serilog.Events;
 namespace CapitalSchoolApi
 {
     public class Startup
@@ -33,10 +34,12 @@ namespace CapitalSchoolApi
                     ApplicationName = databaseName
 
                 };
-                var logerFactory = LoggerFactory.Create(builder =>
-                {
-                    builder.AddConsole();
-                });
+                //var logerFactory = LoggerFactory.Create(builder =>
+                //{
+                //    builder.AddConsole();
+                //});
+
+                
 
                 var cosmosClient = new CosmosClient(accountEndpoint, accountKey, consmosClientOptions);
                 cosmosClient.ClientOptions.ConnectionMode = ConnectionMode.Direct;

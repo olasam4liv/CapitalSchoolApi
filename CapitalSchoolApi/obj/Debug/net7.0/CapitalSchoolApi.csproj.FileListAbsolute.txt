@@ -1,3 +1,4 @@
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\appsettings.json
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\CapitalSchoolApi.exe
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\CapitalSchoolApi.deps.json
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\CapitalSchoolApi.runtimeconfig.json
@@ -13,8 +14,18 @@ C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Microsoft.Bcl.HashCod
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Cosmos.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.AspNetCore.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.Extensions.Hosting.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.Extensions.Logging.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.Formatting.Compact.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.Settings.Configuration.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.Sinks.Console.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.Sinks.Debug.dll
+C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\Serilog.Sinks.File.dll
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\System.Drawing.Common.dll
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\System.Memory.Data.dll
@@ -51,4 +62,3 @@ C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\refint\CapitalSchoolA
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\CapitalSchoolApi.pdb
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\CapitalSchoolApi.genruntimeconfig.cache
 C:\Apps\CapitalSchoolApi\CapitalSchoolApi\obj\Debug\net7.0\ref\CapitalSchoolApi.dll
-C:\Apps\CapitalSchoolApi\CapitalSchoolApi\bin\Debug\net7.0\appsettings.json

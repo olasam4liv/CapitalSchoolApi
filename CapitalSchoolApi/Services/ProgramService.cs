@@ -5,6 +5,7 @@ using CapitalSchoolApi.Models;
 using CapitalSchoolApi.Response;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Linq;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace CapitalSchoolApi.Services
@@ -15,10 +16,12 @@ namespace CapitalSchoolApi.Services
         private readonly CosmosClient _cosmosClient;
         private readonly IConfiguration _configuration;
         private readonly Container _container;
-        public ProgramService(CosmosClient cosmosClient, IConfiguration configuration)
+        private readonly ILogger<ProgramService> _log;
+        public ProgramService(CosmosClient cosmosClient, IConfiguration configuration, ILogger<ProgramService> log)
         {
             _cosmosClient = cosmosClient;
             _configuration = configuration;
+            _log = log;
             
 
             var databaseName = configuration["CosmosDbSettings:DatabaseName"];
@@ -143,7 +146,7 @@ namespace CapitalSchoolApi.Services
                     Summary = payload.Summary,
                     CreatedAt = DateTime.Now,                     
                 };
-
+                _log.LogInformation("New Program Request", JsonConvert.SerializeObject(newProgram));
                 var res = await _container.CreateItemAsync<ProgramModel>(newProgram);
 
                 if(res.StatusCode == HttpStatusCode.Created)
@@ -167,6 +170,7 @@ namespace CapitalSchoolApi.Services
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Internal Server Error";
                 serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+                _log.LogError("Error occured while updating Program", JsonConvert.SerializeObject(ex));
             }
 
            return serviceResponse;
@@ -211,8 +215,8 @@ namespace CapitalSchoolApi.Services
                 response.StartDate = payload.StartDate;
                 response.Summary = payload.Summary;
                 response.UpdatedAt = DateTime.Now;
-               
 
+                _log.LogInformation("Update Program Request", JsonConvert.SerializeObject(payload));
                 var res = await _container.ReplaceItemAsync<ProgramModel>(response, payload.Id);
 
                 if (res.StatusCode == HttpStatusCode.OK)
@@ -236,6 +240,7 @@ namespace CapitalSchoolApi.Services
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Internal Server Error";
                 serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+                _log.LogError("Error occured while updating Program", JsonConvert.SerializeObject(ex));
             }
 
             return serviceResponse;

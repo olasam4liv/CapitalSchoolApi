@@ -4,6 +4,7 @@ using CapitalSchoolApi.Models;
 using CapitalSchoolApi.Response;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Linq;
+using Newtonsoft.Json;
 using System.Configuration;
 using System.Net;
 
@@ -15,7 +16,8 @@ namespace CapitalSchoolApi.Services
         private readonly CosmosClient _cosmosClient;
         private readonly IConfiguration _configuration;
         private readonly Container _container;
-        public ApplicationService(CosmosClient cosmosClient, IConfiguration configuration)
+        private readonly ILogger<ApplicationService> _log;
+        public ApplicationService(CosmosClient cosmosClient, IConfiguration configuration, ILogger<ApplicationService> log)
         {
             _cosmosClient = cosmosClient;
             _configuration = configuration;
@@ -25,6 +27,7 @@ namespace CapitalSchoolApi.Services
             var containerName = "ApplicationForms";
             var database = _cosmosClient.GetDatabase(databaseName);
             _container = database.GetContainer(containerName);
+            _log = log;
         }
 
         public async Task<ServiceResponse<dynamic>> CreateApplication(ApplicationFormDto payload)
@@ -145,7 +148,7 @@ namespace CapitalSchoolApi.Services
                     Experiences= experiences,
                     additionalQuestions= additionalQuestions,     
                 };
-
+                _log.LogInformation("New Application Request", JsonConvert.SerializeObject(newApllicationForm));
                 var res = await _container.CreateItemAsync<ApplicationForm>(newApllicationForm);
 
                 if (res.StatusCode == HttpStatusCode.Created)
@@ -169,6 +172,7 @@ namespace CapitalSchoolApi.Services
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Internal Server Error";
                 serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+                _log.LogError("Error occured while registring New Application", JsonConvert.SerializeObject(ex));
             }
 
             return serviceResponse;
@@ -324,8 +328,8 @@ namespace CapitalSchoolApi.Services
                 response.Educations = educations;
                 response.Experiences = experiences;
                 response.additionalQuestions = additionalQuestions;
-                
 
+                _log.LogInformation("Update Application Request", JsonConvert.SerializeObject(payload));
                 var res = await _container.ReplaceItemAsync<ApplicationForm>(response, payload.Id);
 
                 if (res.StatusCode == HttpStatusCode.OK)
@@ -349,10 +353,11 @@ namespace CapitalSchoolApi.Services
                 serviceResponse.Data = null;
                 serviceResponse.Message = "Internal Server Error";
                 serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+                _log.LogError("Error occured while registring New Application", JsonConvert.SerializeObject(ex));
             }
 
             return serviceResponse;
-            return serviceResponse;
+           
         }
     }
 }

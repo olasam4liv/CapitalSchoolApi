@@ -173,5 +173,42 @@ namespace CapitalSchoolApi.Services
 
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<dynamic>> GetAllApplications()
+        {
+            var serviceResponse = new ServiceResponse<dynamic>();
+            try
+            {
+
+                var query = await _container.GetItemLinqQueryable<ApplicationForm>()
+                                       .ToFeedIterator().ReadNextAsync();
+                var response = query.ToList();
+
+
+                if (response == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Success = true;
+                    serviceResponse.Message = "Record not found";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.NotFound;
+                    return serviceResponse;
+                }
+
+                serviceResponse.Data = response;
+                serviceResponse.Success = true;
+                serviceResponse.Message = "Record Succesfully fetched";
+                serviceResponse.StatusCode = (int)HttpStatusCode.OK;
+
+            }
+            catch (CosmosException ex)
+            {
+
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Internal Server Error";
+                serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
+
+            return serviceResponse;
+        }
     }
 }

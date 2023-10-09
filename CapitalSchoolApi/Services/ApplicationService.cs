@@ -210,5 +210,149 @@ namespace CapitalSchoolApi.Services
 
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<dynamic>> UpdateApplicationForm(UpdateApplicationFormDto payload)
+        {
+            var serviceResponse = new ServiceResponse<dynamic>();
+            var questions = new List<QuestionModel>();
+            var educations = new List<Education>();
+            var experiences = new List<Experience>();
+            var additionalQuestions = new List<AdditionalQuestion>();
+            var choices = new List<QuestionChoice>();
+            try
+            {
+                //Check if data exist
+                var query = await _container.GetItemLinqQueryable<ApplicationForm>()
+                                       .Where(u => u.Id == payload.Id)
+                                       .ToFeedIterator().ReadNextAsync();
+                var response = query.FirstOrDefault();
+
+
+                if (response == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Success = true;
+                    serviceResponse.Message = $"No Record Found";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return serviceResponse;
+                }
+
+
+                foreach (var item in payload.Questions)
+                {
+                    var question = new QuestionModel
+                    {   
+                        Id= item.Id,
+                        Question = item.Question,
+                        Type = item.Type
+                    };
+                    questions.Add(question);
+                }
+
+                foreach (var item in payload.Educations)
+                {
+
+                    var education = new Education
+                    {
+                        Id = item.Id,
+                        Course = item.Course,
+                        Degree = item.Degree,
+                        Location = item.Location,
+                        School = item.School,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate,
+                    };
+                    educations.Add(education);
+                }
+
+                foreach (var item in payload.Experiences)
+                {
+                    var experience = new Experience
+                    {
+                        Id = item.Id,
+                        Company = item.Company,
+                        Location = item.Location,
+                        Title = item.Title,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate,
+                    };
+                    experiences.Add(experience);
+                }
+
+
+                foreach (var item in payload.additionalQuestions)
+                {
+
+                    foreach (var item2 in item.Choice)
+                    {
+
+                        var choice = new QuestionChoice
+                        {
+                            Id = item2.Id,
+                            Choice = item2.Choice
+                        };
+
+                        choices.Add(choice);
+                    }
+
+                    var additionalQuestion = new AdditionalQuestion
+                    {
+                        Id = item.Id,
+                        Choice = choices,
+                        Dropdown = item.Dropdown,
+                        Paragraph = item.Paragraph,
+                        Question = item.Question
+                    };
+
+                    additionalQuestions.Add(additionalQuestion);
+                }
+
+
+                //Update Application                
+
+                response.CurrentResidence = payload.CurrentResidence;
+                response.Dob = payload.Dob;
+                response.Email = payload.Email;
+                response.FileDoc = payload.FileDoc;
+                response.FirstName = payload.FirstName;
+                response.Gender = payload.Gender;
+                response.IdNumber = payload.IdNumber;
+                response.LastName = payload.LastName;
+                response.Nationality = payload.Nationality;
+                response.Phone = payload.Phone;
+                response.Questions = questions;
+                response.Educations = educations;
+                response.Experiences = experiences;
+                response.additionalQuestions = additionalQuestions;
+                
+
+                var res = await _container.ReplaceItemAsync<ApplicationForm>(response, payload.Id);
+
+                if (res.StatusCode == HttpStatusCode.OK)
+                {
+                    serviceResponse.Data = payload;
+                    serviceResponse.Success = true;
+                    serviceResponse.Message = "Apllication Form Succesfully Updated";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.OK;
+
+                }
+                else
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Record Not Updated";
+                    serviceResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                }
+            }
+            catch (CosmosException ex)
+            {
+
+                serviceResponse.Data = null;
+                serviceResponse.Message = "Internal Server Error";
+                serviceResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
+
+            return serviceResponse;
+            return serviceResponse;
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace CapitalSchoolApi.Interfaces
     {
         Task<ServiceResponse<dynamic>> CreateApplication(ApplicationFormDto payload);
         Task<ServiceResponse<dynamic>> GetAllApplications();
+        Task<ServiceResponse<dynamic>> UpdateApplicationForm(UpdateApplicationFormDto payload);
 
     }
 }

@@ -69,5 +69,29 @@ namespace CapitalSchoolApi.Controllers
             return StatusCode(statusCode: (int)HttpStatusCode.OK, serviceResponse);
 
         }
+
+        [Route("UpdateApplicationForm")]
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateApplicationForm(UpdateApplicationFormDto payload)
+        {
+            var serviceResponse = new ServiceResponse<dynamic>();
+
+            serviceResponse = await _applicationService.UpdateApplicationForm(payload);
+
+            if (serviceResponse.StatusCode == (int)HttpStatusCode.BadRequest)
+            {
+                return StatusCode(statusCode: (int)HttpStatusCode.BadRequest, serviceResponse);
+            }
+
+            if (serviceResponse.StatusCode == (int)HttpStatusCode.InternalServerError)
+            {
+                return StatusCode(statusCode: (int)HttpStatusCode.InternalServerError, serviceResponse);
+            }
+            return StatusCode(statusCode: (int)HttpStatusCode.OK, serviceResponse);
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace CapitalSchoolApi
             services.AddControllers();
 
             services.AddScoped<IProgramService, ProgramService>();
+            services.AddScoped<IApplicationService, ApplicationService>();
 
             services.AddSingleton((provider) =>
             {
